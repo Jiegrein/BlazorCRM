@@ -1,0 +1,39 @@
+@page "/Deal"
+@rendermode InteractiveAuto
+@using BlazorCRM.Client.Components
+<PageTitle>Deal</PageTitle>
+<head>
+    <link href="_content/BlazorCRM.Client.Components/styles.css" rel="stylesheet" />
+</head>
+@if (Deals == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <MudDataGrid @ref="_dataGrid" T="DealReadDto" ServerData="ServerReload" FixedHeader Height="75vh" FixedFooter SortMode="SortMode.None" RowsPerPage="100" Hover="true" Loading="true">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Deals</MudText>
+            <MudSpacer />
+            <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <Columns>
+            <SelectColumn T="DealReadDto" />
+            <PropertyColumn Property="x => x.CEDealId" Title="@GetDisplayName(nameof(DealReadDto.CEDealId))" />
+            <PropertyColumn Property="x => x.BusinessName" Title="@GetDisplayName(nameof(DealReadDto.BusinessName))" />
+            <PropertyColumn Property="x => x.ApplicantName" Title="@GetDisplayName(nameof(DealReadDto.ApplicantName))" />
+            <PropertyColumn Property="x => x.RequestedLoanAmount" Title="@GetDisplayName(nameof(DealReadDto.RequestedLoanAmount))" />
+            <PropertyColumn Property="x => x.SalesRep" Title="@GetDisplayName(nameof(DealReadDto.SalesRep))" />
+            <PropertyColumn Property="x => x.DataAssociate" Title="@GetDisplayName(nameof(DealReadDto.DataAssociate))" />
+            <PropertyColumn Property="x => x.Stage" Title="@GetDisplayName(nameof(DealReadDto.Stage))" />
+            <PropertyColumn Property="x => x.Status" Title="@GetDisplayName(nameof(DealReadDto.Status))" />
+            <PropertyColumn Property="x => x.CreatedTime" Title="@GetDisplayName(nameof(DealReadDto.CreatedTime))" />
+            <PropertyColumn Property="x => x.LeadSource" Title="@GetDisplayName(nameof(DealReadDto.LeadSource))" />
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="DealReadDto" PageSizeOptions="new int[]{25, 50, 100}"/>
+        </PagerContent>
+    </MudDataGrid>
+    @* <CrmDataGrid T="DealReadDto" Items="Deals" DisplayProperties="@_displayList" TableName="Deals" PageSize="100" /> *@
+}

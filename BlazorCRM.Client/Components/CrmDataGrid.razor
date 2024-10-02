@@ -1,0 +1,21 @@
+﻿@using System.Reflection
+@using MudBlazor
+@typeparam T
+
+<MudDataGrid @ref="_dataGrid" T="T" ServerData="ServerReload" FixedHeader Height="75vh" FixedFooter Filterable="false" SortMode="SortMode.None" RowsPerPage="@PageSize">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">@TableName</MudText>
+        <MudSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <Columns>
+        @foreach (var display in DisplayProperties)
+        {
+            <PropertyColumn Property="@_propertyExpressions[display]" Title="@GetDisplayName(display)" />
+        }
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="T" PageSizeOptions="new int[]{25, 50, 100}" />
+    </PagerContent>
+</MudDataGrid>

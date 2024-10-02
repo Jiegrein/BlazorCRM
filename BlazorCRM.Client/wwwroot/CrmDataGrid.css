@@ -1,0 +1,11 @@
+﻿/* Target the custom class for the MudDataGrid */
+.custom-data-grid .mud-table-head {
+    background-color: #ffeb3b; /* Yellow header */
+    color: #000; /* Black text color */
+}
+
+/* Optional: Customize the text color and border for the header */
+.custom-data-grid .mud-table-head th {
+    color: #000;
+    border-bottom: 2px solid #ccc;
+}
